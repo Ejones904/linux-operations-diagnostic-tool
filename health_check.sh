@@ -67,7 +67,7 @@ resource_check() {
 
 	echo "Memory Usage:${MEMORY_USAGE}%"
 
-	if ["$MEMORY_USAGE" -gt 80 ]; then
+	if [ "$MEMORY_USAGE" -gt 80 ]; then
 		echo "Memory Status:WARNING"
 	else
 		echo "Memory Status:HEALTHY"
