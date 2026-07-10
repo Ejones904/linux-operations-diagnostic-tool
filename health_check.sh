@@ -23,6 +23,8 @@ NETWORK_INTERFACE=$(ip route | awk '/default/ {print $5}')
 GATEWAY=$(ip route | awk '/default/ {print $3}')
 PING_RESULT=$(ping -c 1 google.com >/dev/null 2>&1 && echo "SUCCESS" || echo "FAILED")
 
+SSH_STATUS=$(systemctl is-active ssh 2>/dev/null)
+
 print_header() {
 	echo "*************************************"
 	echo " Linux Operations Diagnostic Tool"
@@ -102,8 +104,25 @@ network_check() {
 
 	echo ""
 }
+
+service_check() {
+	echo "SERVICE CHECK"
+	echo "*************"
+
+	echo "SSH Service Status:$SSH_STATUS"
+
+	if [ "$SSH_STATUS" = "active" ]; then
+		echo "SSH Status:HEALTHY"
+	else
+		echo "SSH Status:WARNING"
+	fi
+
+	echo ""
+}
+
 print_header
 system_information
 user_information
 resource_check
 network_check
+service_check
