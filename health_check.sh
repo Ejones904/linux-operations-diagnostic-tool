@@ -12,6 +12,8 @@ CURRENT_DATE=$(date)
 KERNEL=$(uname -r)
 UPTIME=$(uptime -p)
 IP_ADDRESS=$(hostname -I)
+USER_ID=$(id -u)
+GROUPS=$(groups)
 
 print_header() {
 	echo "*************************************"
@@ -37,6 +39,21 @@ system_information() {
 	echo ""
 }
 
+user_information() {
+	echo "USER INFORMATION"
+	echo "****************"
+
+	echo "Username:$CURRENT_USER"
+
+	echo "User ID:$USER_ID"
+
+	echo "Groups:$GROUPS"
+
+	echo ""
+}
+
 print_header
 system_information
+user_information
+
 
