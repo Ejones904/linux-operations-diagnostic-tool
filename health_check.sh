@@ -19,6 +19,10 @@ MEMORY_USAGE=$(free | awk '/Mem:/ {printf "%.0f", $3/$2 * 100}')
 DISK_USAGE=$(df / | awk 'NR==2 {print $5}' | tr -d '%')
 CPU_LOAD=$(uptime | awk -F'load average:' '{print $2}')
 
+NETWORK_INTERFACE=$(ip route | awk '/default/ {print $5}')
+GATEWAY=$(ip route | awk '/default/ {print $3}')
+PING_RESULT=$(ping -c 1 google.com >/dev/null 2>&1 && echo "SUCCESS" || echo "FAILED")
+
 print_header() {
 	echo "*************************************"
 	echo " Linux Operations Diagnostic Tool"
@@ -86,8 +90,20 @@ resource_check() {
 	echo ""
 }
 
+network_check() {
+	echo "NETWORK CHECK"
+	echo "*************"
+
+	echo "Interface:$NETWORK_INTERFACE"
+
+	echo "Gateway:$GATEWAY"
+
+	echo "Connectivity Test:$PING_RESULT"
+
+	echo ""
+}
 print_header
 system_information
 user_information
 resource_check
-
+network_check
