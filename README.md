@@ -22,6 +22,7 @@ A Bash-based Linux health monitoring tool that collects system information, chec
 ```bash
 chmod +x health_check.sh
 ./health_check.sh
+```
 
 ## Generates
 
