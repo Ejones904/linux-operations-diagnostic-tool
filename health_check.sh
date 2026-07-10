@@ -25,6 +25,8 @@ PING_RESULT=$(ping -c 1 google.com >/dev/null 2>&1 && echo "SUCCESS" || echo "FA
 
 SSH_STATUS=$(systemctl is-active ssh 2>/dev/null)
 
+REPORT_FILE="reports/linux_health_report.txt"
+
 print_header() {
 	echo "*************************************"
 	echo " Linux Operations Diagnostic Tool"
@@ -120,9 +122,51 @@ service_check() {
 	echo ""
 }
 
+generate_report() {
+
+    echo "Generating report..."
+
+    echo "Linux Operations Diagnostic Report" > $REPORT_FILE
+    echo "==================================" >> $REPORT_FILE
+
+    echo "" >> $REPORT_FILE
+
+    echo "Generated: $CURRENT_DATE" >> $REPORT_FILE
+
+    echo "" >> $REPORT_FILE
+
+    echo "SYSTEM INFORMATION" >> $REPORT_FILE
+    echo "******************" >> $REPORT_FILE
+    echo "Hostname: $HOSTNAME" >> $REPORT_FILE
+    echo "Kernel: $KERNEL" >> $REPORT_FILE
+    echo "User: $CURRENT_USER" >> $REPORT_FILE
+
+    echo "" >> $REPORT_FILE
+
+    echo "RESOURCE STATUS" >> $REPORT_FILE
+    echo "***************" >> $REPORT_FILE
+    echo "Memory Usage: $MEMORY_USAGE%" >> $REPORT_FILE
+    echo "Disk Usage: $DISK_USAGE%" >> $REPORT_FILE
+
+    echo "" >> $REPORT_FILE
+
+    echo "NETWORK STATUS" >> $REPORT_FILE
+    echo "**************" >> $REPORT_FILE
+    echo "Connectivity: $PING_RESULT" >> $REPORT_FILE
+
+    echo "" >> $REPORT_FILE
+
+    echo "SERVICE STATUS" >> $REPORT_FILE
+    echo "**************" >> $REPORT_FILE
+    echo "SSH: $SSH_STATUS" >> $REPORT_FILE
+
+    echo "Report saved to $REPORT_FILE"
+
+}
 print_header
 system_information
 user_information
 resource_check
 network_check
 service_check
+generate_report
