@@ -1,6 +1,8 @@
 # Linux Operations Diagnostic Tool
 
-A Bash-based Linux health monitoring tool that collects system information, checks resources, performs network diagnostics, monitors services, and generates reports.
+A Bash-based Linux health monitoring solution designed to improve system reliability by automating routine diagnostics, increasing operational visibility, and reducing manual troubleshooting time. 
+
+The tool enables administrators to quickly identify potential system issues by collecting performance data, validating network connectivity, monitoring services, and generating actionable health reports.
 
 ## Features
 
